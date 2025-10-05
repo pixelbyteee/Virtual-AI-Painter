@@ -1,4 +1,4 @@
-🎨 AI Virtual Painter
+# 🎨 AI Virtual Painter
 
 Turn your webcam into a live, gesture‑controlled drawing canvas. This Python app uses real‑time hand tracking (MediaPipe + OpenCV) so you can draw, erase, change colors, and adjust brush size using nothing but intuitive finger gestures.
 
@@ -10,12 +10,13 @@ Turn your webcam into a live, gesture‑controlled drawing canvas. This Python a
 4. Installation
 5. Project Structure
 6. Running the App
-7. Gestures & Controls
-8. How It Works
-9. Configuration & Customization
-10. Troubleshooting
-11. Roadmap / Ideas
-12. License & Acknowledgements
+7. Output Preview
+8. Gestures & Controls
+9. How It Works
+10. Configuration & Customization
+11. Troubleshooting
+12. Roadmap / Ideas
+13. License & Acknowledgements
 
 ---
 ## 1. 🧾 Overview
@@ -25,27 +26,27 @@ The Virtual Painter overlays your drawing actions onto a blank canvas while show
 ## 2. ✨ Features
 - Real‑time hand landmark tracking (MediaPipe Hands)
 - Two interaction modes: Selection vs Drawing
-- Color palette (easily extendable)
-- Eraser tool & Clear‑All button
-- Dynamic brush/eraser size via pinch distance
-- Visual feedback: highlighted tool, live cursor size
-- Separate paint layer blended over camera feed
-- Lightweight, dependency‑minimal implementation
+- Extendable color palette (toolbar icons)
+- Eraser tool & Clear‑All capability (if implemented later)
+- Dynamic brush / eraser size via pinch distance
+- Smoothed cursor positions (deque averaging)
+- Visual feedback (cursor circle, selection rectangle, active header image)
+- Separate persistent paint layer blended over live feed
+- Simple modular hand tracking wrapper (`handtrackingmodule.py`)
 
 ---
-## 3. � Requirements
-Python 3.8+ (tested with 3.10). Install dependencies via `requirements.txt` or manually:
+## 3. 🛠 Requirements
+Python 3.8+ (tested with 3.10). Install dependencies via `requirements.txt` or manually.
 
 Core libraries:
 - opencv-python
 - mediapipe
 - numpy
 
-Optional (for future extensions):
-- pillow (exporting images)
-- pyinstaller (packaging)
+Optional (ideas / future):
+- pillow (save/export images in different formats)
+- pyinstaller (create standalone executable)
 
----
 ## 4. 🚀 Installation
 Clone or copy the project folder (shown here as `Virtual_Painter`). If you cloned a larger parent repository, `Virtual_Painter` is already present.
 
@@ -91,7 +92,18 @@ python main.py
 Then point your webcam at your hand. Press `q` to quit.
 
 ---
-## 7. ✋ Gestures & Controls
+## 7. 🖼 Output Preview
+Example (Drawing Mode with toolbar and blended strokes):
+
+![Sample Output](assets/Screenshot%202025-10-06%20022506.png)
+
+<!-- > If the image does not display on GitHub, rename the file to a simpler name without spaces, e.g. `sample_output.png`, then update the link:
+> `![Sample Output](assets/sample_output.png)` -->
+
+
+
+---
+## 8. ✋ Gestures & Controls
 | Mode | Gesture | Action | Visual Cue |
 |------|---------|--------|------------|
 | Selection | Index & Middle fingers up | Hover over header icons to pick tool/color | Rectangle between raised fingers |
@@ -103,7 +115,7 @@ Then point your webcam at your hand. Press `q` to quit.
 Pinch distance is mapped to a thickness range (e.g. 5–50). Adjust scaling constants in `main.py` to suit preference.
 
 ---
-## 8. 🧠 How It Works (Architecture)
+## 9. 🧠 How It Works (Architecture)
 1. Capture frames via OpenCV.
 2. Run MediaPipe Hands to obtain 21 landmark coordinates.
 3. Determine which fingers are raised (simple heuristic using y/x comparisons of landmarks).
@@ -116,7 +128,7 @@ Pinch distance is mapped to a thickness range (e.g. 5–50). Adjust scaling cons
 `handtrackingmodule.py` encapsulates: initialization, landmark extraction, finger state logic (if implemented there), and convenience helpers for position extraction.
 
 ---
-## 9. 🔧 Configuration & Customization
+## 10. 🔧 Configuration & Customization
 | What | Where | How |
 |------|-------|-----|
 | Colors | List/array near top of `main.py` | Add RGB tuples & toolbar icon |
@@ -129,7 +141,7 @@ Pinch distance is mapped to a thickness range (e.g. 5–50). Adjust scaling cons
 Export idea: capture final canvas with `cv2.imwrite("drawing.png", imgCanvas)`.
 
 ---
-## 10. 🛠 Troubleshooting
+## 11. 🛠 Troubleshooting
 | Issue | Possible Cause | Fix |
 |-------|----------------|-----|
 | No webcam feed | Wrong camera index | Try `1`, `2`, etc. |
@@ -141,7 +153,7 @@ Export idea: capture final canvas with `cv2.imwrite("drawing.png", imgCanvas)`.
 If MediaPipe import fails: `pip install --upgrade mediapipe`.
 
 ---
-## 11. 🧭 Roadmap / Ideas
+## 12. 🧭 Roadmap / Ideas
 - Save & load layers
 - Undo / Redo stack
 - Multi-hand multi-color simultaneous drawing
@@ -151,7 +163,7 @@ If MediaPipe import fails: `pip install --upgrade mediapipe`.
 - Export time-lapse of drawing
 
 ---
-## 12. 📄 License & Acknowledgements
+## 13. 📄 License & Acknowledgements
 Choose a license (e.g. MIT) and add it here. If using MediaPipe & OpenCV, retain their respective licenses.
 
 Thanks to the open-source computer vision community for amazing tooling.
